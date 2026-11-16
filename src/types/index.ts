@@ -1,4 +1,4 @@
-export type TravelMode = 'wheelchair' | 'walk' | 'transit';
+export type TravelMode = 'car' | 'bike' | 'walk';
 
 export type AccessibilityPreference = 
   | 'step-free'
@@ -45,7 +45,7 @@ export interface RouteStep {
   instruction: string;
   distance: string;
   duration: string;
-  actionType: 'start' | 'straight' | 'turn-left' | 'turn-right' | 'ramp' | 'elevator' | 'crossing' | 'destination' | 'transit';
+  actionType: 'start' | 'straight' | 'turn-left' | 'turn-right' | 'ramp' | 'elevator' | 'crossing' | 'destination' | 'transit' | 'drive' | 'bike';
   accessibilityNote?: string;
   stepFree: boolean;
   surface: 'Smooth concrete' | 'Tactile paving' | 'Asphalt' | 'Cobblestone' | 'Interior tile';

@@ -10,7 +10,9 @@ import {
   CornerDownLeft, 
   ArrowUp, 
   Volume2, 
-  Bus, 
+  Car,
+  Bike,
+  Footprints,
   Share2, 
   Printer, 
   ShieldAlert, 
@@ -44,8 +46,12 @@ export const RouteDetailsPanel: React.FC<RouteDetailsPanelProps> = ({
         return <CornerDownRight className="w-4 h-4 text-[#6E6E73]" strokeWidth={1.75} />;
       case 'crossing':
         return <Volume2 className="w-4 h-4 text-[#34C759]" strokeWidth={1.75} />;
-      case 'transit':
-        return <Bus className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />;
+      case 'drive':
+        return <Car className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />;
+      case 'bike':
+        return <Bike className="w-4 h-4 text-[#34C759]" strokeWidth={1.75} />;
+      case 'walk':
+        return <Footprints className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />;
       default:
         return <ArrowUp className="w-4 h-4 text-[#6E6E73]" strokeWidth={1.75} />;
     }

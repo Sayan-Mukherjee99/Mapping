@@ -1,15 +1,14 @@
 import React from 'react';
 import { 
-  Accessibility, 
-  ArrowLeftRight, 
+  Car, 
+  Bike, 
   Footprints, 
-  Bus, 
+  ArrowLeftRight, 
   Sparkles, 
   Check, 
   ShieldAlert, 
   Compass, 
   ArrowRight,
-  ShieldCheck,
   ChevronDown,
 } from 'lucide-react';
 import { 
@@ -64,7 +63,7 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
     { id: 'step-free', label: 'Step-free route', detail: 'Zero stairs or high curbs' },
     { id: 'avoid-stairs', label: 'Avoid stairs', detail: 'Ramps and grade routes only' },
     { id: 'working-elevators', label: 'Working elevators', detail: 'Real-time verified lifts' },
-    { id: 'fewer-obstacles', label: 'Fewer obstacles', detail: 'Wide unobstructed sidewalks' },
+    { id: 'fewer-obstacles', label: 'Fewer obstacles', detail: 'Wide unobstructed paths' },
     { id: 'low-incline', label: 'Gentle slopes (< 3%)', detail: 'Comfortable gradient' },
     { id: 'audio-signals', label: 'Audio crosswalks', detail: 'Audible chirp crossings' },
   ];
@@ -86,7 +85,7 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
         </h1>
 
         <p className="text-[17px] sm:text-[19px] text-[#6E6E73] max-w-xl mx-auto leading-relaxed font-normal">
-          Find verified step-free corridors, live elevator statuses, and community barrier alerts before you leave.
+          Find accessible pathways, live barrier alerts, and low-stress routes tailored for driving, cycling, and walking.
         </p>
       </div>
 
@@ -99,28 +98,43 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
           }}
           className="space-y-7"
         >
-          {/* iOS / macOS Style Segmented Control for Travel Modes */}
+          {/* iOS / macOS Segmented Control: Car, Bike, Walk ONLY */}
           <div className="space-y-2">
             <span className="block text-[12px] font-semibold text-[#6E6E73] uppercase tracking-wider">
               Travel Mode
             </span>
             <div className="p-1 bg-[#E8E8ED] rounded-full flex items-center border border-black/[0.04] relative">
-              {/* Wheelchair Mode */}
+              {/* Car Mode */}
               <button
                 type="button"
-                onClick={() => setTravelMode('wheelchair')}
+                onClick={() => setTravelMode('car')}
                 className={`flex-1 py-2 sm:py-2.5 px-3 rounded-full text-[14px] font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                  travelMode === 'wheelchair'
+                  travelMode === 'car'
                     ? 'bg-white text-[#1D1D1F] shadow-[0_2px_8px_rgba(0,0,0,0.12)] font-semibold'
                     : 'text-[#6E6E73] hover:text-[#1D1D1F]'
                 }`}
-                aria-pressed={travelMode === 'wheelchair'}
+                aria-pressed={travelMode === 'car'}
               >
-                <Accessibility className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />
-                <span>Wheelchair</span>
+                <Car className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Car</span>
               </button>
 
-              {/* Walking Mode */}
+              {/* Bike Mode */}
+              <button
+                type="button"
+                onClick={() => setTravelMode('bike')}
+                className={`flex-1 py-2 sm:py-2.5 px-3 rounded-full text-[14px] font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                  travelMode === 'bike'
+                    ? 'bg-white text-[#1D1D1F] shadow-[0_2px_8px_rgba(0,0,0,0.12)] font-semibold'
+                    : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                }`}
+                aria-pressed={travelMode === 'bike'}
+              >
+                <Bike className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Bike</span>
+              </button>
+
+              {/* Walk Mode */}
               <button
                 type="button"
                 onClick={() => setTravelMode('walk')}
@@ -131,23 +145,8 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
                 }`}
                 aria-pressed={travelMode === 'walk'}
               >
-                <Footprints className="w-4 h-4 text-[#6E6E73]" strokeWidth={1.75} />
-                <span>Walking</span>
-              </button>
-
-              {/* Transit Mode */}
-              <button
-                type="button"
-                onClick={() => setTravelMode('transit')}
-                className={`flex-1 py-2 sm:py-2.5 px-3 rounded-full text-[14px] font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                  travelMode === 'transit'
-                    ? 'bg-white text-[#1D1D1F] shadow-[0_2px_8px_rgba(0,0,0,0.12)] font-semibold'
-                    : 'text-[#6E6E73] hover:text-[#1D1D1F]'
-                }`}
-                aria-pressed={travelMode === 'transit'}
-              >
-                <Bus className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />
-                <span>Transit</span>
+                <Footprints className="w-4 h-4 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Walk</span>
               </button>
             </div>
           </div>
@@ -332,69 +331,69 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          {/* Demo 1 */}
+          {/* Demo 1: Car */}
           <button
             type="button"
-            onClick={() => onSelectSampleJourney('central-station', 'mercy-hospital', 'wheelchair')}
+            onClick={() => onSelectSampleJourney('central-station', 'mercy-hospital', 'car')}
             className="p-4 rounded-[20px] bg-white border border-black/[0.08] hover:border-black/[0.16] shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-200 text-left apple-press group"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#34C759]/[0.12] text-[#34C759]">
-                Step-Free
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#0071E3]/[0.10] text-[#0071E3]">
+                Car Route
               </span>
-              <Accessibility className="w-4 h-4 text-[#0071E3] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
+              <Car className="w-4 h-4 text-[#0071E3] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
             </div>
             <div className="font-semibold text-[#1D1D1F] text-[14px] tracking-tight group-hover:text-[#0071E3] transition-colors">
               Central Station → Mercy Hospital
             </div>
             <p className="text-[12px] text-[#6E6E73] mt-1 line-clamp-2 leading-relaxed">
-              Bypasses blocked curb ramp at 5th Ave via verified Broad St level corridor.
+              Fastest vehicle route via Broad St avoiding lane restrictions on Hospital Blvd.
             </p>
           </button>
 
-          {/* Demo 2 */}
+          {/* Demo 2: Bike */}
           <button
             type="button"
-            onClick={() => onSelectSampleJourney('city-hall', 'riverside-library', 'walk')}
+            onClick={() => onSelectSampleJourney('city-hall', 'riverside-library', 'bike')}
             className="p-4 rounded-[20px] bg-white border border-black/[0.08] hover:border-black/[0.16] shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-200 text-left apple-press group"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FF9F0A]/[0.14] text-[#D97706]">
-                Ramp Detour
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#34C759]/[0.12] text-[#34C759]">
+                Protected Bike Track
               </span>
-              <Footprints className="w-4 h-4 text-[#6E6E73] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
+              <Bike className="w-4 h-4 text-[#34C759] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
             </div>
             <div className="font-semibold text-[#1D1D1F] text-[14px] tracking-tight group-hover:text-[#0071E3] transition-colors">
               City Hall Plaza → Riverside Library
             </div>
             <p className="text-[12px] text-[#6E6E73] mt-1 line-clamp-2 leading-relaxed">
-              Circumnavigates 18 plaza stone steps; includes resolved library atrium lift.
+              Dedicated two-way cycleway bypassing stairs and connecting to Waterfront trail.
             </p>
           </button>
 
-          {/* Demo 3 */}
+          {/* Demo 3: Walk */}
           <button
             type="button"
-            onClick={() => onSelectSampleJourney('tech-hub', 'market-square', 'transit')}
+            onClick={() => onSelectSampleJourney('tech-hub', 'market-square', 'walk')}
             className="p-4 rounded-[20px] bg-white border border-black/[0.08] hover:border-black/[0.16] shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-200 text-left apple-press group"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#0071E3]/[0.10] text-[#0071E3]">
-                Low-Floor Tram
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FF9F0A]/[0.14] text-[#D97706]">
+                Step-Free Walk
               </span>
-              <Bus className="w-4 h-4 text-[#0071E3] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
+              <Footprints className="w-4 h-4 text-[#D97706] group-hover:scale-105 transition-transform" strokeWidth={1.75} />
             </div>
             <div className="font-semibold text-[#1D1D1F] text-[14px] tracking-tight group-hover:text-[#0071E3] transition-colors">
               Tech Campus → Union Market
             </div>
             <p className="text-[12px] text-[#6E6E73] mt-1 line-clamp-2 leading-relaxed">
-              Zero-gap level platform boarding with audio tactile crosswalk guidance.
+              Wide sidewalks, tactile audio crosswalk signals, and zero staircase obstructions.
             </p>
           </button>
         </div>
       </div>
 
-      {/* Trust & Transparency Civic Notice - Bento Container */}
+      {/* Trust & Transparency Civic Notice */}
       <div className="mt-8 bg-white/70 rounded-[22px] p-5 border border-black/[0.08] flex items-start gap-4 text-[13px] text-[#6E6E73] shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
         <div className="w-8 h-8 rounded-full bg-[#FF9F0A]/[0.12] flex items-center justify-center shrink-0 text-[#FF9F0A]">
           <ShieldAlert className="w-4 h-4" strokeWidth={1.75} />
@@ -404,7 +403,7 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
             Audited Civic Data with Uncertainty Awareness
           </p>
           <p className="leading-relaxed">
-            Accessibility reports are compiled from public transit authorities and community contributions. Because conditions change with weather and street maintenance, please verify conditions before traveling.
+            Accessibility reports are compiled from public civic audits and community reports. Because conditions change with street works, traffic, and weather, please verify conditions before traveling.
           </p>
         </div>
       </div>

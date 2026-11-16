@@ -9,7 +9,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'transit',
     x: 180,
     y: 780,
-    features: ['Elevators to platforms', 'Tactile paving', 'Step-free entrance', 'Accessible restrooms'],
+    features: ['Accessible drop-off bay', 'Bike parking shelter', 'Level road access', 'Elevators to street'],
   },
   {
     id: 'city-hall',
@@ -19,7 +19,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'civic',
     x: 360,
     y: 520,
-    features: ['Gradual ramps', 'Automatic power doors', 'Braille directories'],
+    features: ['Accessible parking stalls', 'Dedicated bike racks', 'Gradual ramps'],
   },
   {
     id: 'mercy-hospital',
@@ -29,7 +29,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'medical',
     x: 780,
     y: 220,
-    features: ['Full ADA compliance', 'Audio announcements', 'Drop-off bay', 'Wheelchair charging'],
+    features: ['Emergency vehicle bay', 'Covered bike hub', 'Full ADA ramp access'],
   },
   {
     id: 'market-square',
@@ -39,7 +39,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'commercial',
     x: 520,
     y: 380,
-    features: ['Level thresholds', 'Wide pedestrian passages', 'Accessible seating'],
+    features: ['Curbside loading zone', 'Bicycle corral', 'Level entrances'],
   },
   {
     id: 'riverside-library',
@@ -49,7 +49,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'culture',
     x: 720,
     y: 700,
-    features: ['Step-free boardwalk', 'Audible door chimes', 'Elevator to all 3 floors'],
+    features: ['EV charging & accessible parking', 'Waterfront bike trail link', 'Ground level access'],
   },
   {
     id: 'tech-hub',
@@ -59,7 +59,7 @@ export const LOCATION_PRESETS: LocationPreset[] = [
     category: 'commercial',
     x: 220,
     y: 250,
-    features: ['Automatic swing doors', 'Touchless elevators', 'Smooth epoxy flooring'],
+    features: ['Underground garage & elevator', 'Secure bike lockers', 'Smooth pavement'],
   },
 ];
 
@@ -71,7 +71,7 @@ export const INITIAL_BARRIERS: BarrierReport[] = [
     locationName: 'Metro Central Station (West Concourse)',
     x: 200,
     y: 750,
-    description: 'West street elevator motor fault. Sign posted by transit authority. East concourse elevator remains operating (requires 140 ft detour via 4th Ave entrance).',
+    description: 'West street elevator motor fault. Maintenance sign posted. East concourse elevator remains operating (requires 140 ft detour via 4th Ave entrance).',
     reportedAt: '2 hours ago',
     createdAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
     status: 'verified',
@@ -84,28 +84,28 @@ export const INITIAL_BARRIERS: BarrierReport[] = [
   {
     id: 'barrier-2',
     type: 'blocked-ramp',
-    title: 'Curb Ramp Blocked by Delivery Van',
+    title: 'Curb Ramp & Bike Lane Blocked by Delivery Van',
     locationName: '5th Ave & Market St (Southwest Corner)',
     x: 460,
     y: 440,
-    description: 'Commercial delivery vehicle parked over the pedestrian curb cut, unloading freight. Wheelchairs must backtrack half a block to cross at 4th Ave.',
+    description: 'Commercial delivery vehicle parked over the pedestrian curb cut and bike lane. Cyclists and pedestrians must merge into roadway or backtrack.',
     reportedAt: '38 mins ago',
     createdAt: new Date(Date.now() - 38 * 60 * 1000).toISOString(),
     status: 'unverified',
     severity: 'urgent',
     upvotes: 6,
-    reportedBy: 'Elena R. (Wheelchair Commuter)',
+    reportedBy: 'Elena R. (Cyclist & Commuter)',
     photoUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=600&q=80',
     affectedRouteIds: ['route-direct'],
   },
   {
     id: 'barrier-3',
     type: 'stairs-only',
-    title: 'Historic Civic Plaza Stairs (No Ramp on West)',
+    title: 'Historic Civic Plaza Stairs (No Ramp/Bypass on West)',
     locationName: 'Civic Plaza Steps at Broad St',
     x: 350,
     y: 490,
-    description: 'Flight of 18 granite steps without adjacent handrail or ramp. Accessible step-free ramp is situated 200ft east via Mayor Walkway.',
+    description: 'Flight of 18 granite steps without adjacent handrail or ramp. Accessible step-free ramp and bike wheel runnel is situated 200ft east via Mayor Walkway.',
     reportedAt: 'Yesterday (Permanent feature confirmed)',
     createdAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
     status: 'verified',
@@ -117,11 +117,11 @@ export const INITIAL_BARRIERS: BarrierReport[] = [
   {
     id: 'barrier-4',
     type: 'construction',
-    title: 'Utility Sidewalk Trench (Narrow 24" Passage)',
+    title: 'Road Utility Trench & Narrow Right-Lane Passage',
     locationName: 'Hospital Blvd & Health Way',
     x: 720,
     y: 260,
-    description: 'Conduit excavation work. Temporary plywood walkway is restricted to 24 inches width with 2-inch lip. Wheelchairs cannot navigate without road detour.',
+    description: 'Conduit excavation work. Right vehicle lane and sidewalk restricted to 24 inches width. Expect vehicular bottleneck and sidewalk detour.',
     reportedAt: '3 hours ago',
     createdAt: new Date(Date.now() - 3 * 3600 * 1000).toISOString(),
     status: 'verified',
@@ -134,11 +134,11 @@ export const INITIAL_BARRIERS: BarrierReport[] = [
   {
     id: 'barrier-5',
     type: 'damaged-surface',
-    title: 'Buckled Brick Pavers from Tree Roots',
+    title: 'Buckled Brick Pavers & Pothole Hazard',
     locationName: 'Waterfront Promenade Path (Near Pier 3)',
     x: 640,
     y: 650,
-    description: 'Significant 2-inch heaving of decorative brick pavers caused by mature willow oak roots. May catch small caster wheels or cause balance instability.',
+    description: 'Significant 2-inch heaving of decorative brick pavers caused by mature willow oak roots. Poses hazard for small wheels and road bikes.',
     reportedAt: '1 day ago (Community report)',
     createdAt: new Date(Date.now() - 28 * 3600 * 1000).toISOString(),
     status: 'unverified',
@@ -177,18 +177,12 @@ export function calculateMockRoutes(
   const startLoc = LOCATION_PRESETS.find(l => l.id === startId) || LOCATION_PRESETS[0];
   const destLoc = LOCATION_PRESETS.find(l => l.id === destId) || LOCATION_PRESETS[2];
 
-  // Base distance calculation in SVG unit space
   const dx = destLoc.x - startLoc.x;
   const dy = destLoc.y - startLoc.y;
   const directDistanceUnits = Math.sqrt(dx * dx + dy * dy);
   const baseMiles = Number((directDistanceUnits * 0.0018 + 0.3).toFixed(1));
 
-  // Determine active barrier alerts that might affect paths
-  const activeUrgentBarriers = barriers.filter(b => b.status !== 'resolved' && b.severity === 'urgent');
-  const activeModerateBarriers = barriers.filter(b => b.status !== 'resolved' && b.severity === 'moderate');
-
-  // Option 1: Accessibility-Prioritized Route (Step-Free & Verified)
-  // This route purposefully takes detours to avoid known stairs, steep inclines, and blocked ramps
+  // Waypoints for Route 1 (Safe, Step-Free & Protected Corridor)
   const waypoints1 = [
     { x: startLoc.x, y: startLoc.y },
     { x: startLoc.x + (dx * 0.2), y: startLoc.y },
@@ -198,7 +192,7 @@ export function calculateMockRoutes(
     { x: destLoc.x, y: destLoc.y },
   ];
 
-  // Option 2: Fastest Direct Path (May encounter obstacles or incline)
+  // Waypoints for Route 2 (Fastest Direct Street Route)
   const waypoints2 = [
     { x: startLoc.x, y: startLoc.y },
     { x: startLoc.x + (dx * 0.5), y: startLoc.y + (dy * 0.2) },
@@ -206,31 +200,49 @@ export function calculateMockRoutes(
     { x: destLoc.x, y: destLoc.y },
   ];
 
-  // Option 3: Civic Transit / Boulevard Route (Smooth transit connection with audio crosswalks)
+  // Waypoints for Route 3 (Scenic Boulevard & Waterfront Route)
   const waypoints3 = [
     { x: startLoc.x, y: startLoc.y },
-    { x: 380, y: 520 }, // via Civic Hub
-    { x: 520, y: 380 }, // via Market Square
+    { x: 380, y: 520 },
+    { x: 520, y: 380 },
     { x: destLoc.x, y: destLoc.y },
   ];
 
-  const speedFactor = mode === 'wheelchair' ? 3.0 : mode === 'transit' ? 8.5 : 3.2; // mph roughly
-  const time1 = Math.max(8, Math.round((baseMiles * 1.25 / speedFactor) * 60));
-  const time2 = Math.max(6, Math.round((baseMiles * 0.95 / speedFactor) * 60));
-  const time3 = Math.max(10, Math.round((baseMiles * 1.4 / speedFactor) * 60));
+  // Speed and time estimates by mode: car (~24mph), bike (~11mph), walk (~3.1mph)
+  let speedMph = 3.1;
+  let modeName = 'Walking';
+  if (mode === 'car') {
+    speedMph = 24.0;
+    modeName = 'Drive';
+  } else if (mode === 'bike') {
+    speedMph = 11.0;
+    modeName = 'Bike';
+  }
 
-  const hasStepFreePref = preferences.includes('step-free');
-  const hasElevatorPref = preferences.includes('working-elevators');
-  const hasAvoidStairsPref = preferences.includes('avoid-stairs');
+  const time1 = Math.max(mode === 'car' ? 3 : mode === 'bike' ? 5 : 8, Math.round((baseMiles * 1.15 / speedMph) * 60));
+  const time2 = Math.max(mode === 'car' ? 2 : mode === 'bike' ? 4 : 6, Math.round((baseMiles * 0.95 / speedMph) * 60));
+  const time3 = Math.max(mode === 'car' ? 4 : mode === 'bike' ? 6 : 10, Math.round((baseMiles * 1.35 / speedMph) * 60));
 
-  // Route 1: The Verified Step-Free Route
+  // Route 1: The Safe / Step-Free / Protected Route
   const route1: RouteOption = {
     id: 'route-step-free',
-    name: 'Broad St & Accessible Civic Corridor',
-    subtitle: '100% Step-free · Verified curb ramps · Gentle slopes',
-    badge: 'Recommended for Wheelchairs',
+    name: mode === 'car' 
+      ? 'Broad St & Accessible Civic Corridor' 
+      : mode === 'bike' 
+      ? 'Broad St Protected Cycleway & Greenway' 
+      : 'Broad St Pedestrian Corridor (100% Step-free)',
+    subtitle: mode === 'car' 
+      ? 'Direct road passage · Dedicated accessible drop-off bays · Zero restrictions' 
+      : mode === 'bike' 
+      ? 'Grade-separated cycle track · Low traffic stress · Smooth asphalt' 
+      : '100% Step-free · Verified curb ramps · Gentle slopes',
+    badge: mode === 'car' 
+      ? 'Smoothest Drive' 
+      : mode === 'bike' 
+      ? 'Recommended Cycleway' 
+      : 'Recommended Walk',
     isRecommended: true,
-    durationMinutes: mode === 'transit' ? Math.round(time1 * 0.75) : time1,
+    durationMinutes: time1,
     distanceMiles: Number((baseMiles * 1.15).toFixed(1)),
     stepFreePercentage: 100,
     maxSlopePercent: 2.5,
@@ -238,70 +250,91 @@ export function calculateMockRoutes(
     urgentBarrierCount: 0,
     pathPoints: waypoints1,
     travelMode: mode,
-    highlights: [
+    highlights: mode === 'car' ? [
+      'Accessible curb drop-off bays at origin and destination',
+      'Wide multi-lane arterial with synchronised traffic signals',
+      'Avoids utility trench lane closure on Hospital Blvd'
+    ] : mode === 'bike' ? [
+      '100% grade-separated cycleway protected by concrete buffer',
+      'Bicycle signal priority at all 4 major intersections',
+      'Gentle slope under 2.5% throughout'
+    ] : [
       'Zero stairs or curbs over 0.25 inches',
-      'All 6 crosswalks equipped with audible signals and truncated domes',
-      'Continuous wide sidewalks (minimum 64 inches width)',
-      'Smooth brushed concrete pavement throughout'
+      'All crosswalks equipped with audible signals and tactile domes',
+      'Continuous wide sidewalks (minimum 64 inches width)'
     ],
     caveats: [
-      'Adds approximately 4 minutes detour to bypass construction on 5th Ave',
-      'Mild 2.5% slope approaching Civic plaza'
+      'Adds approximately 3–4 minutes detour to bypass construction on 5th Ave',
+      'Gentle 2.5% slope approaching Civic Plaza'
     ],
     barriers: [],
     steps: [
       {
         id: 's1-1',
-        instruction: `Exit ${startLoc.shortLabel} via the automated East ramp entrance (push-pad activated)`,
+        instruction: mode === 'car' 
+          ? `Depart ${startLoc.shortLabel} accessible pick-up loop onto Grand Concourse` 
+          : mode === 'bike' 
+          ? `Join protected cycleway from ${startLoc.shortLabel} bike shelter` 
+          : `Exit ${startLoc.shortLabel} via automated East ramp entrance`,
         distance: '150 ft',
         duration: '1 min',
-        actionType: 'start',
+        actionType: mode === 'car' ? 'drive' : mode === 'bike' ? 'bike' : 'start',
         stepFree: true,
         surface: 'Smooth concrete',
         incline: '1.2% slope',
-        accessibilityNote: 'Push-button power door with 38-inch clearance.',
+        accessibilityNote: mode === 'car' ? 'Wide loading stall with flush access.' : 'Flush curb transition onto bike lane.',
       },
       {
         id: 's1-2',
-        instruction: 'Head north along Grand Concourse on the wide east sidewalk',
+        instruction: mode === 'car'
+          ? 'Head north along Grand Concourse in center lane'
+          : mode === 'bike'
+          ? 'Proceed north along Grand Concourse protected two-way bike track'
+          : 'Head north along Grand Concourse on wide east sidewalk',
         distance: '0.3 mi',
-        duration: '6 mins',
+        duration: `${Math.max(1, Math.round(time1 * 0.4))} mins`,
         actionType: 'straight',
         stepFree: true,
-        surface: 'Smooth concrete',
+        surface: mode === 'car' ? 'Asphalt' : 'Smooth concrete',
         incline: 'Flat (< 1%)',
-        accessibilityNote: 'Pavement inspected Nov 2026. Wide clear path without outdoor dining blockages.',
       },
       {
         id: 's1-3',
-        instruction: 'Cross 4th Ave at Broad St using the audio-chirp pedestrian signal',
+        instruction: mode === 'car'
+          ? 'Turn right onto Broad St Accessible Corridor'
+          : mode === 'bike'
+          ? 'Turn right onto Broad St cycle track at bicycle traffic signal'
+          : 'Cross 4th Ave at Broad St using audio-chirp pedestrian signal',
         distance: '60 ft',
         duration: '1 min',
-        actionType: 'crossing',
+        actionType: mode === 'car' ? 'turn-right' : mode === 'bike' ? 'turn-right' : 'crossing',
         stepFree: true,
         surface: 'Tactile paving',
-        accessibilityNote: 'Flush curb cuts on both sides with high-contrast tactile warning pavers.',
+        accessibilityNote: 'Flush curb cuts and sensor-activated green phase.',
       },
       {
         id: 's1-4',
-        instruction: 'Turn right onto Broad St Accessible Promenade, bypassing the historic steps',
+        instruction: mode === 'car'
+          ? 'Continue along Broad St to destination entrance'
+          : mode === 'bike'
+          ? 'Follow Broad St gentle switchback ramp, bypassing historic stairs'
+          : 'Turn right onto Broad St Accessible Promenade, bypassing historic steps',
         distance: '0.4 mi',
-        duration: '7 mins',
-        actionType: 'turn-right',
+        duration: `${Math.max(1, Math.round(time1 * 0.4))} mins`,
+        actionType: mode === 'car' ? 'straight' : 'straight',
         stepFree: true,
         surface: 'Smooth concrete',
         incline: '2.5% gentle grade',
-        accessibilityNote: 'Bypasses the 18 steps at Civic Plaza via gentle 1:16 switchback ramp.',
       },
       {
         id: 's1-5',
-        instruction: `Arrive at ${destLoc.shortLabel} main entrance`,
+        instruction: `Arrive at ${destLoc.shortLabel} entrance`,
         distance: '100 ft',
         duration: '1 min',
         actionType: 'destination',
         stepFree: true,
         surface: 'Smooth concrete',
-        accessibilityNote: 'Automatic dual sliding glass doors with tactile threshold guidance.',
+        accessibilityNote: mode === 'car' ? 'Designated accessible parking directly adjacent.' : 'Covered bike parking and level doorway.',
       },
     ],
   };
@@ -310,7 +343,11 @@ export function calculateMockRoutes(
   const route2: RouteOption = {
     id: 'route-direct',
     name: '5th Ave & Market St Direct',
-    subtitle: 'Shortest path · Active barrier reports · Caution advised',
+    subtitle: mode === 'car'
+      ? 'Shortest drive · Active road work on Hospital Blvd · Caution'
+      : mode === 'bike'
+      ? 'Fastest route · Delivery van in bike lane at 5th & Market'
+      : 'Shortest path · Active barrier reports · Caution advised',
     badge: 'Fastest (Has Barriers)',
     isRecommended: false,
     durationMinutes: time2,
@@ -322,37 +359,41 @@ export function calculateMockRoutes(
     pathPoints: waypoints2,
     travelMode: mode,
     highlights: [
-      'Shortest total distance',
-      'Well-lit primary commercial boulevard',
-      'High density of transit stops'
+      'Shortest total travel distance',
+      'Direct arterial thoroughfare',
+      'Well-lit streetscape'
     ],
     caveats: [
-      '1 urgent barrier: curb ramp blocked by delivery truck at 5th & Market',
-      '1 moderate barrier: historic stairs with steep alternative path',
-      'Pavement contains sections of rough brick pavers'
+      '1 urgent barrier: delivery truck blocking curb cut and bike lane at 5th & Market',
+      '1 moderate barrier: historic stairs (pedestrians) / steep 5.4% incline section',
+      'Sections of rough brick pavers and cobblestones'
     ],
-    barriers: [barriers[1], barriers[3]], // blocked ramp & utility trench
+    barriers: [barriers[1], barriers[3]],
     steps: [
       {
         id: 's2-1',
         instruction: `Depart ${startLoc.shortLabel} towards 5th Ave`,
         distance: '200 ft',
-        duration: '2 mins',
+        duration: '1 min',
         actionType: 'start',
         stepFree: true,
         surface: 'Smooth concrete',
       },
       {
         id: 's2-2',
-        instruction: 'Proceed northeast along 5th Ave commercial corridor',
+        instruction: mode === 'car'
+          ? 'Proceed northeast along 5th Ave commercial corridor'
+          : mode === 'bike'
+          ? 'Ride northeast along 5th Ave (Caution: delivery truck obstructing bike lane)'
+          : 'Proceed northeast along 5th Ave commercial corridor',
         distance: '0.4 mi',
-        duration: '7 mins',
+        duration: `${Math.max(1, Math.round(time2 * 0.5))} mins`,
         actionType: 'straight',
         stepFree: false,
         surface: 'Cobblestone',
         barrierWarning: {
           barrierId: 'barrier-2',
-          message: 'Alert: Curb ramp blocked by delivery van (reported 38m ago). Wheelchairs may need street detour.',
+          message: 'Alert: Delivery van blocking curb ramp and bike lane (reported 38m ago). Merge with caution.',
           severity: 'urgent',
           status: 'unverified',
         },
@@ -361,18 +402,18 @@ export function calculateMockRoutes(
         id: 's2-3',
         instruction: 'Turn left onto Civic Way near the steps',
         distance: '0.2 mi',
-        duration: '4 mins',
+        duration: `${Math.max(1, Math.round(time2 * 0.3))} mins`,
         actionType: 'turn-left',
         stepFree: false,
         surface: 'Asphalt',
         incline: '5.4% moderate hill',
-        accessibilityNote: 'Steep hill section. Handrails present only on northern half of sidewalk.',
+        accessibilityNote: 'Steep hill section requiring higher effort.',
       },
       {
         id: 's2-4',
-        instruction: `Approach ${destLoc.shortLabel} north medical wing`,
+        instruction: `Approach ${destLoc.shortLabel} north entrance`,
         distance: '300 ft',
-        duration: '2 mins',
+        duration: '1 min',
         actionType: 'destination',
         stepFree: true,
         surface: 'Smooth concrete',
@@ -380,77 +421,68 @@ export function calculateMockRoutes(
     ],
   };
 
-  // Route 3: Waterfront or Transit Boulevard Route
+  // Route 3: Waterfront Boulevard Route
   const route3: RouteOption = {
-    id: 'route-transit-waterfront',
-    name: 'Rapid Transit Line 1 & Waterfront Promenade',
-    subtitle: 'Low effort · Level-boarding transit · Scenic wide paths',
-    badge: mode === 'transit' ? 'Top Transit Pick' : 'Scenic & Low Effort',
+    id: 'route-scenic-waterfront',
+    name: 'Waterfront Promenade Boulevard',
+    subtitle: mode === 'car'
+      ? 'Scenic perimeter drive · Low congestion · Smooth highway link'
+      : mode === 'bike'
+      ? 'Dedicated waterfront bike path · Flat terrain · Scenic river view'
+      : 'Scenic flat promenade · Low effort · Wide paths',
+    badge: mode === 'car' ? 'Scenic Drive' : mode === 'bike' ? 'Scenic Cycle Track' : 'Scenic Walk',
     isRecommended: false,
-    durationMinutes: mode === 'transit' ? Math.max(9, Math.round(time3 * 0.6)) : time3,
-    distanceMiles: Number((baseMiles * 1.3).toFixed(1)),
+    durationMinutes: time3,
+    distanceMiles: Number((baseMiles * 1.35).toFixed(1)),
     stepFreePercentage: 96,
     maxSlopePercent: 1.8,
     barrierCount: 1,
     urgentBarrierCount: 0,
     pathPoints: waypoints3,
     travelMode: mode,
-    transitLine: {
-      name: 'Blue Rapid Line 1 (Low-Floor Tram)',
-      color: '#0284c7',
-      accessibleVehicles: true,
-    },
     highlights: [
-      'Level platform boarding with zero vertical gap',
-      'Audio and high-contrast digital station displays',
-      'Wide waterfront promenade path (over 8ft wide)',
-      'Shaded rest benches with armrests every 200 feet'
+      'Continuous wide pathway / multi-lane scenic roadway',
+      'Flat terrain along water (under 1.8% grade)',
+      'Scenic views of Riverside Harbor'
     ],
     caveats: [
       '1 unverified report of buckled root pavers near pier 3',
-      'Requires crossing 1 minor unsignalized side street'
+      'Adds extra distance compared to direct street route'
     ],
-    barriers: [barriers[4]], // buckled tree roots
+    barriers: [barriers[4]],
     steps: [
       {
         id: 's3-1',
-        instruction: `Board Blue Rapid Line 1 at ${startLoc.shortLabel} platform A (level boarding)`,
-        distance: '0.7 mi',
-        duration: '5 mins',
-        actionType: 'transit',
+        instruction: `Depart ${startLoc.shortLabel} east towards Waterfront Promenade`,
+        distance: '0.3 mi',
+        duration: '2 mins',
+        actionType: 'start',
         stepFree: true,
-        surface: 'Interior tile',
-        accessibilityNote: '100% accessible low-floor tram cars with priority wheelchair bays.',
+        surface: 'Asphalt',
       },
       {
         id: 's3-2',
-        instruction: 'Disembark at Civic Center Transit stop',
-        distance: '80 ft',
-        duration: '1 min',
-        actionType: 'transit',
-        stepFree: true,
-        surface: 'Tactile paving',
-        accessibilityNote: 'Flush platform exit directly to sidewalk ramp.',
-      },
-      {
-        id: 's3-3',
-        instruction: 'Follow the Waterfront Promenade pathway heading north',
-        distance: '0.3 mi',
-        duration: '6 mins',
+        instruction: mode === 'car'
+          ? 'Cruise north along Waterfront Promenade scenic roadway'
+          : mode === 'bike'
+          ? 'Follow dedicated two-way cycle path along waterfront'
+          : 'Follow wide paved boardwalk along Waterfront Promenade',
+        distance: '0.6 mi',
+        duration: `${Math.max(2, Math.round(time3 * 0.6))} mins`,
         actionType: 'straight',
         stepFree: true,
         surface: 'Asphalt',
         incline: 'Flat (< 1.5%)',
         barrierWarning: {
           barrierId: 'barrier-5',
-          message: 'Note: Minor tree root buckling on pavers near Pier 3. Path remains passible.',
+          message: 'Note: Minor tree root buckling on pavers near Pier 3. Pass with caution.',
           severity: 'moderate',
           status: 'unverified',
         },
       },
       {
-        id: 's3-4',
-        instruction: `Arrive at ${destLoc.shortLabel}`,
+        id: 's3-3',
+        instruction: `Turn west to arrive at ${destLoc.shortLabel}`,
         distance: '150 ft',
         duration: '1 min',
         actionType: 'destination',
@@ -460,6 +492,5 @@ export function calculateMockRoutes(
     ],
   };
 
-  // If user selected strict step-free or avoid-stairs, ensure route 1 is top
   return [route1, route2, route3];
 }

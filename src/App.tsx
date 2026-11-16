@@ -31,7 +31,7 @@ export function App() {
 
   const [startLocId, setStartLocId] = useState<string>('central-station');
   const [destLocId, setDestLocId] = useState<string>('mercy-hospital');
-  const [travelMode, setTravelMode] = useState<TravelMode>('wheelchair');
+  const [travelMode, setTravelMode] = useState<TravelMode>('walk');
   const [preferences, setPreferences] = useState<AccessibilityPreference[]>([
     'step-free',
     'avoid-stairs',
@@ -223,7 +223,7 @@ export function App() {
                 </div>
 
                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-[12px] font-medium bg-[#F5F5F7] text-[#6E6E73] border border-black/[0.06]">
-                  {travelMode === 'wheelchair' ? '♿ Wheelchair' : travelMode === 'transit' ? '🚌 Transit' : '🚶 Walking'}
+                  {travelMode === 'car' ? '🚗 Car Mode' : travelMode === 'bike' ? '🚲 Bike Mode' : '🚶 Walk Mode'}
                 </span>
               </div>
 

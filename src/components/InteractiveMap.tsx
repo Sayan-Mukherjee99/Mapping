@@ -11,7 +11,7 @@ import {
   RotateCcw, 
   Layers, 
   Volume2, 
-  Bus, 
+  Bike, 
   Navigation, 
   Clock, 
   ThumbsUp, 
@@ -143,8 +143,8 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
                 : 'text-[#6E6E73] hover:text-[#1D1D1F]'
             }`}
           >
-            <Bus className="w-3.5 h-3.5 text-[#0071E3] shrink-0" strokeWidth={1.75} />
-            <span className="hidden sm:inline">Transit Line</span>
+            <Bike className="w-3.5 h-3.5 text-[#0071E3] shrink-0" strokeWidth={1.75} />
+            <span className="hidden sm:inline">Cycleways</span>
           </button>
 
           <button
@@ -323,7 +323,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               <circle cx="520" cy="380" r="6" fill="#0071E3" stroke="white" strokeWidth="2" />
               <circle cx="780" cy="220" r="7" fill="#0071E3" stroke="white" strokeWidth="2.5" />
               <text x="240" y="810" fill="#0071E3" fontSize="9" fontWeight="600">
-                TRANSIT LINE 1 (STEP-FREE TRAM)
+                PROTECTED CYCLEWAY & BIKE TRACK
               </text>
             </g>
           )}

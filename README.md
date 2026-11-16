@@ -38,7 +38,7 @@
 Standard digital navigation systems optimize almost exclusively for speed and vehicular traffic, routinely misdirecting wheelchair users, parents with strollers, and seniors toward steep inclines, missing curb cuts, broken transit elevators, or construction zones.
 
 **AccessNow** solves this by:
-1. **Prioritizing Mobility Profiles**: Generating multiple route alternatives based on physical accessibility (100% step-free corridors, gentle slope gradients `< 3%`, and level-boarding transit).
+1. **Prioritizing Mobility Profiles**: Generating multiple route alternatives for **Car**, **Bike**, and **Walk** based on physical accessibility (100% step-free corridors, gentle slope gradients `< 3%`, and protected cycleways).
 2. **Exposing Uncertainty**: Treating city infrastructure honestly by acknowledging that urban conditions change rapidly. Barrier reports are transparently categorized as **Verified**, **Unverified**, or **Resolved**.
 3. **Zero Third-Party Dependencies**: Self-contained SVG cartography and client-side processing ensure 100% availability, privacy, and zero reliance on paid external map services.
 

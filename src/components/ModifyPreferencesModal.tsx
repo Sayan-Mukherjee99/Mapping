@@ -2,10 +2,10 @@ import React from 'react';
 import { 
   X, 
   SlidersHorizontal, 
-  Accessibility, 
-  Check, 
+  Car, 
+  Bike, 
   Footprints,
-  Bus,
+  Check, 
   ChevronDown
 } from 'lucide-react';
 import { 
@@ -133,7 +133,7 @@ export const ModifyPreferencesModal: React.FC<ModifyPreferencesModalProps> = ({
             </div>
           </div>
 
-          {/* Travel Mode Segmented Control */}
+          {/* Travel Mode Segmented Control: Car, Bike, Walk ONLY */}
           <div className="space-y-1.5 pt-2 border-t border-black/[0.06]">
             <label className="block text-[11px] font-semibold text-[#6E6E73] uppercase tracking-wider">
               Travel Mode
@@ -141,15 +141,27 @@ export const ModifyPreferencesModal: React.FC<ModifyPreferencesModalProps> = ({
             <div className="p-1 bg-[#E8E8ED] rounded-full flex items-center border border-black/[0.04]">
               <button
                 type="button"
-                onClick={() => setTravelMode('wheelchair')}
+                onClick={() => setTravelMode('car')}
                 className={`flex-1 py-1.5 px-3 rounded-full text-[13px] font-medium transition-all flex items-center justify-center gap-1.5 ${
-                  travelMode === 'wheelchair'
+                  travelMode === 'car'
                     ? 'bg-white text-[#1D1D1F] shadow-[0_2px_6px_rgba(0,0,0,0.10)] font-semibold'
                     : 'text-[#6E6E73] hover:text-[#1D1D1F]'
                 }`}
               >
-                <Accessibility className="w-3.5 h-3.5 text-[#0071E3]" strokeWidth={1.75} />
-                <span>Wheelchair</span>
+                <Car className="w-3.5 h-3.5 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Car</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTravelMode('bike')}
+                className={`flex-1 py-1.5 px-3 rounded-full text-[13px] font-medium transition-all flex items-center justify-center gap-1.5 ${
+                  travelMode === 'bike'
+                    ? 'bg-white text-[#1D1D1F] shadow-[0_2px_6px_rgba(0,0,0,0.10)] font-semibold'
+                    : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                }`}
+              >
+                <Bike className="w-3.5 h-3.5 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Bike</span>
               </button>
               <button
                 type="button"
@@ -160,20 +172,8 @@ export const ModifyPreferencesModal: React.FC<ModifyPreferencesModalProps> = ({
                     : 'text-[#6E6E73] hover:text-[#1D1D1F]'
                 }`}
               >
-                <Footprints className="w-3.5 h-3.5 text-[#6E6E73]" strokeWidth={1.75} />
-                <span>Walking</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setTravelMode('transit')}
-                className={`flex-1 py-1.5 px-3 rounded-full text-[13px] font-medium transition-all flex items-center justify-center gap-1.5 ${
-                  travelMode === 'transit'
-                    ? 'bg-white text-[#1D1D1F] shadow-[0_2px_6px_rgba(0,0,0,0.10)] font-semibold'
-                    : 'text-[#6E6E73] hover:text-[#1D1D1F]'
-                }`}
-              >
-                <Bus className="w-3.5 h-3.5 text-[#0071E3]" strokeWidth={1.75} />
-                <span>Transit</span>
+                <Footprints className="w-3.5 h-3.5 text-[#0071E3]" strokeWidth={1.75} />
+                <span>Walk</span>
               </button>
             </div>
           </div>
