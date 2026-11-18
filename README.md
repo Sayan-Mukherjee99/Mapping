@@ -1,264 +1,278 @@
-# AccessNow — Accessibility-Aware Trip Planner
-
 <div align="center">
 
-[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+# 🗺️ AccessNow
+
+### Accessibility-aware trip planning for more inclusive cities
+
+[![React](https://img.shields.io/badge/React-18.3.1-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.4.11-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.15-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.15-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-34C759)](LICENSE)
-[![Zero API Keys](https://img.shields.io/badge/API_Keys-None_Required-0071E3)](#-privacy--security-model)
+[![API Keys](https://img.shields.io/badge/API_Keys-Not_required-0071E3)](#privacy--data)
 
-<p align="center">
-  <strong>A responsive, civic-tech web application that empowers individuals with mobility requirements to plan accessible journeys while transparently navigating community-reported urban barriers.</strong>
+<p>
+  Plan journeys around real mobility needs—not only distance and traffic.<br />
+  AccessNow combines ranked accessible routes, community barrier reports, and private local-first storage.
 </p>
+
+[**Explore the project**](https://github.com/Sayan-Mukherjee99/Mapping) · [**Run locally**](#getting-started) · [**Report an issue**](https://github.com/Sayan-Mukherjee99/Mapping/issues)
 
 </div>
 
 ---
 
-## 📖 Table of Contents
+## ✨ Why AccessNow?
 
-- [Overview & Product Vision](#-overview--product-vision)
-- [Design Philosophy](#-design-philosophy)
-- [System Architecture](#-system-architecture)
-- [Application Flowchart](#-application-flowchart)
-- [Barrier Audit State Machine](#-barrier-audit-state-machine)
-- [Key Features](#-key-features)
-- [Component Structure](#-component-structure)
-- [Privacy & Security Model](#-privacy--security-model)
-- [Getting Started](#-getting-started)
-- [Demo Data & Assumptions](#-demo-data--assumptions)
-- [Contributing](#-contributing)
+Traditional navigation commonly prioritizes speed and vehicles. That can send wheelchair users, parents with strollers, older adults, and other travelers toward steep hills, missing curb cuts, broken elevators, or construction.
 
----
+**AccessNow** puts mobility requirements first:
 
-## 🎯 Overview & Product Vision
+- ♿ **Mobility-aware alternatives** — compare routes for car, bike, and walking.
+- 🛠️ **Barrier transparency** — clearly distinguish verified, unverified, and resolved reports.
+- 🗺️ **Interactive local map** — explore routes and obstacles on a self-contained SVG map.
+- 🔍 **Worldwide place search** — find addresses and landmarks with OpenStreetMap and Photon.
+- 🔒 **Privacy-first design** — no API keys, trackers, or external map service dependencies.
 
-Standard digital navigation systems optimize almost exclusively for speed and vehicular traffic, routinely misdirecting wheelchair users, parents with strollers, and seniors toward steep inclines, missing curb cuts, broken transit elevators, or construction zones.
-
-**AccessNow** solves this by:
-1. **Prioritizing Mobility Profiles**: Generating multiple route alternatives for **Car**, **Bike**, and **Walk** based on physical accessibility (100% step-free corridors, gentle slope gradients `< 3%`, and protected cycleways).
-2. **Exposing Uncertainty**: Treating city infrastructure honestly by acknowledging that urban conditions change rapidly. Barrier reports are transparently categorized as **Verified**, **Unverified**, or **Resolved**.
-3. **Zero Third-Party Dependencies**: Self-contained SVG cartography and client-side processing ensure 100% availability, privacy, and zero reliance on paid external map services.
+> AccessNow is a civic-tech prototype: route data and urban barriers are modeled for demonstration and are not a substitute for real-time municipal or professional accessibility guidance.
 
 ---
 
-## 🎨 Design Philosophy
+## 🧭 Key Features
 
-AccessNow is styled after **Apple’s Human Interface Guidelines** to provide a calm, trustworthy civic utility:
-
-* **Canvas & Surfaces**: Apple neutral canvas (`#F5F5F7`), pure white elevated bento cards (`#FFFFFF`), primary ink in `#1D1D1F`, secondary copy in `#6E6E73`, and 1px hairline borders (`rgba(0, 0, 0, 0.08)`).
-* **System Color Tokens**:
-  * 🔵 **Apple System Blue (`#0071E3`)**: Primary actions, active route paths, and selection states.
-  * 🟢 **System Emerald (`#34C759`)**: Step-free verified states, audio crosswalk signals, and cleared reports.
-  * 🟠 **System Amber (`#FF9F0A`)**: Unverified community alerts and advisory cautions.
-  * 🔴 **System Red (`#FF3B30`)**: Strictly reserved for urgent impassable barriers (e.g. vehicle blocking a curb cut).
-* **Typography**: Native Apple font stack (`-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter"`), tight headline tracking (`-0.025em`), and generous whitespace.
-* **Micro-Interactions**: Pill-shaped action buttons (`border-radius: 9999px`), active press compression (`scale(0.98)`), macOS/iOS-style segmented pill controls, and spring-timed transitions (`cubic-bezier(0.25, 0.1, 0.25, 1)`).
+| Feature | What it offers |
+|:--|:--|
+| **Accessible route ranking** | Up to three alternatives with step-free coverage, maximum gradient, duration, distance, and obstacle counts |
+| **Real place search** | Free worldwide address and landmark search powered by OpenStreetMap and Photon |
+| **Bespoke vector map** | District roads, waterfront, parks, crosswalks, landmarks, route paths, and barrier markers |
+| **Turn-by-turn simulator** | Step through every maneuver with a focused route navigation preview |
+| **Barrier reporting** | Submit seven barrier types with severity, description, location, and photo upload preview |
+| **Community verification** | Search and filter reports, then confirm whether an obstacle is still present |
+| **Adaptive preferences** | Prioritize step-free paths, working elevators, low slopes, audio crosswalks, and stair avoidance |
+| **High-contrast mode** | A dedicated visual mode for users who need greater interface contrast |
 
 ---
 
-## 🏗 System Architecture
+## 🖼️ Interface Preview
 
-The following diagram details the modular architecture of AccessNow, illustrating the relationship between UI components, the routing computation engine, the cartography pipeline, and offline persistence.
+> Add screenshots or a short demo GIF here to showcase the planner, map, route comparison, and community feed.
 
-```mermaid
-flowchart TD
-    subgraph PresentationLayer["Presentation Layer (Apple HIG UI)"]
-        Nav["Frosted Glass Top Bar\n(Header.tsx)"]
-        Landing["Planner Screen\n(PlannerLanding.tsx)"]
-        RouteCards["Route Alternatives\n(RouteOptionsList.tsx)"]
-        Details["Turn-by-Turn Panel\n(RouteDetailsPanel.tsx)"]
-        Feed["Civic Audit Feed\n(CommunityFeed.tsx)"]
-        Modals["Action Modals\n(Report, About, Preferences)"]
-    end
-
-    subgraph StateAndComputeLayer["State & Computation Layer"]
-        AppRoot["Application Root State\n(App.tsx)"]
-        RouteEngine["Dynamic Route Calculator\n(calculateMockRoutes)"]
-        LocalStore[("Local State &\nBrowser LocalStorage")]
-        PresetDB["Location Presets\n(mockData.ts)"]
-    end
-
-    subgraph CartographyEngine["Local SVG Cartography Engine"]
-        SvgCanvas["Stylized District Vector Canvas\n(InteractiveMap.tsx)"]
-        GeoElements["Roads, Waterfront, Parks,\nCrosswalks & Landmarks"]
-        PathOverlay["Glowing Active & Alternative\nRoute Vector Paths"]
-        PinLayer["Urgent, Verified, & Unverified\nBarrier Markers"]
-    end
-
-    Nav --> AppRoot
-    Landing --> AppRoot
-    AppRoot --> RouteEngine
-    PresetDB --> RouteEngine
-    LocalStore <--> AppRoot
-    RouteEngine --> RouteCards
-    RouteEngine --> PathOverlay
-    AppRoot --> Details
-    AppRoot --> Feed
-    AppRoot --> Modals
-    Modals --> LocalStore
-    AppRoot --> SvgCanvas
-    SvgCanvas --> GeoElements
-    SvgCanvas --> PathOverlay
-    SvgCanvas --> PinLayer
-    PinLayer --> Details
+```text
+[ Planner ]  →  [ Interactive Map ]  →  [ Accessible Routes ]  →  [ Turn-by-Turn Guidance ]
 ```
 
 ---
 
-## 🔄 Application Flowchart
+## 🏗️ System Architecture
 
-This flowchart outlines the end-to-end trip planning, route selection, and community reporting workflows.
+```mermaid
+flowchart LR
+    subgraph Presentation["Presentation Layer"]
+        Header[Header & preferences]
+        Planner[Journey planner]
+        Map[SVG map]
+        Routes[Route alternatives]
+        Feed[Community reports]
+    end
+
+    subgraph Logic["State & Computation"]
+        App[App state]
+        Engine[Route calculator]
+        Storage[(Local storage)]
+        Presets[Location presets]
+    end
+
+    Header --> App
+    Planner --> App
+    App --> Engine
+    Presets --> Engine
+    Engine --> Routes
+    Engine --> Map
+    App <--> Storage
+    App --> Feed
+```
+
+### Application flow
 
 ```mermaid
 flowchart TD
-    Start([User Opens AccessNow]) --> InputChoices["Select Origin, Destination,\nTravel Mode & Accessibility Chips"]
-    InputChoices --> ValidateInput{"Start and Dest\nIdentical?"}
+    Start([Open AccessNow]) --> Input[Choose origin, destination, mode, and preferences]
+    Input --> Validate{Locations different?}
+    Validate -- No --> Warning[Display validation message] --> Input
+    Validate -- Yes --> Find[Find accessible routes]
+    Find --> Engine[Filter paths, calculate gradients, and correlate barriers]
+    Engine --> Results[Show map and ranked alternatives]
 
-    ValidateInput -- Yes --> ShowValidation["Display Warning: Choose Distinct Locations"] --> InputChoices
-    ValidateInput -- No --> TriggerFind["Click 'Find My Route' or 1-Click Demo Journey"]
+    Results --> Choice{User action}
+    Choice -- Switch route --> Route[Update selected path and directions]
+    Choice -- Inspect barrier --> Barrier[Open barrier details]
+    Choice -- Navigate --> Steps[Step through turn-by-turn guidance]
+    Choice -- Report issue --> Report[Open report modal]
 
-    TriggerFind --> ComputeRoutes["Route Engine Processes Profile:\n- Filter for Step-Free Paths\n- Calculate Slopes & Clearances\n- Correlate Active Barrier Coordinates"]
-
-    ComputeRoutes --> ResultsView["Render Split Bento View:\n- Interactive SVG Vector Map\n- Ranked Route Alternatives\n- Turn-by-Turn Navigation Panel"]
-
-    ResultsView --> UserAction{"User Interaction"}
-
-    UserAction -- Switch Route --> SelectRoute["Select Route Alternative A / B / C"] --> UpdateMap["Highlight Selected Path & Recalculate Directions"] --> ResultsView
-    UserAction -- Inspect Barrier --> ClickPin["Click Map Pin or Route Warning"] --> OpenPopover["Open Barrier Card with Details,\nAge, Photo, & Verification Status"] --> ResultsView
-    UserAction -- Turn Simulation --> SimNav["Step Through Turn-by-Turn Directions"] --> ResultsView
-
-    UserAction -- Report New Obstacle --> OpenReportModal["Open 'Report an Issue' Modal"]
-    OpenReportModal --> FillForm["Enter Type, Location, Severity,\nDescription & Attach Photo"]
-    FillForm --> ValidateForm{"Required Fields\nValid?"}
-    ValidateForm -- No --> ShowFormErrors["Highlight Incomplete Fields"] --> FillForm
-    ValidateForm -- Yes --> SaveReport["Persist to React State & localStorage"]
-    SaveReport --> UpdateFeed["Immediately Spawn Unverified Marker\non Map & Top of Community Feed"]
-    UpdateFeed --> ResultsView
+    Report --> Details[Enter type, location, severity, description, and photo]
+    Details --> Save[Persist locally]
+    Save --> Feed[Update map marker and community feed]
+    Feed --> Results
+    Route --> Results
+    Barrier --> Results
+    Steps --> Results
 ```
 
 ---
 
-## 🚦 Barrier Audit State Machine
-
-Every accessibility barrier reported by the community moves through a lifecycle designed to prevent stale or inaccurate data:
+## 🚦 Barrier Lifecycle
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Unverified: Contributor Submits Report
-    note right of Unverified: Displayed with Amber Pin (⚠️)\nPrompts nearby travelers to audit
+    [*] --> Unverified: Community report submitted
+    Unverified --> Verified: 2+ confirmations or municipal feed
+    Unverified --> Resolved: Marked cleared
+    Verified --> Resolved: Repair completed
+    Resolved --> [*]: Archived
 
-    Unverified --> Verified: 2+ Community Confirmations OR Municipal DPW Feed
-    note right of Verified: Displayed with Emerald Pin (✅)\nConfirmed obstacle incorporated into route scoring
+    note right of Unverified
+        Amber marker
+        Needs nearby confirmation
+    end note
 
-    Unverified --> Resolved: Marked Cleared by Commuter
-    Verified --> Resolved: Transit Authority or Municipal Repair Completed
-    note right of Resolved: Displayed with Slate Pin (⚪)\nMarked with inspection timestamp
+    note right of Verified
+        Emerald marker
+        Included in route assessment
+    end note
 
-    Resolved --> [*]: Archived in Community History
+    note right of Resolved
+        Slate marker
+        Cleared or repaired
+    end note
 ```
 
----
-
-## ⚡ Key Features
-
-| Feature | Description |
-| :--- | :--- |
-| **Free Real Place Search** | Live worldwide address and landmark search powered by OpenStreetMap & Photon. Zero API keys, zero fees, and zero credit card requirements. |
-| **Bespoke Vector Map** | Stylized SVG district map containing Grand Concourse, Broad St, 5th Ave, Waterfront Harbor, piers, parks, crosswalks, and landmark footprints. Zero API keys required. |
-| **Ranked Accessible Routes** | Computes up to 3 routes per query with metrics: Step-Free %, Max Gradient %, Estimated Duration, Distance, and Active Obstacle Count. |
-| **Interactive Route Simulator** | Step-by-step navigation preview walking the user through each maneuver with tactile guides and push-button doorway indicators. |
-| **Community Reporting Modal** | Comprehensive reporting for 7 barrier types (elevators, curb cuts, stairs, trenches, etc.) with file upload preview and demo sample photos. |
-| **Crowd Verification Feed** | Live community feed supporting search, category tabs (*All*, *Urgent*, *Unverified*, *Verified*, *Resolved*), and *“Confirm Still There”* upvotes. |
-| **Adaptive Preferences** | Modify travel modes or toggle priorities (*Step-free*, *Avoid stairs*, *Working elevators*, *Low slopes*, *Audio crosswalks*) with immediate route recalculation. |
-| **High Contrast Accessibility** | Dedicated High Contrast Mode for vision-impaired users alongside full WCAG AAA compliant color ratios. |
+| Status | Meaning | Visual indicator |
+|:--|:--|:--|
+| **Unverified** | Recently reported and awaiting confirmation | Amber marker |
+| **Verified** | Confirmed by the community or a municipal feed | Emerald marker |
+| **Resolved** | Cleared, repaired, or archived | Slate marker |
 
 ---
 
-## 📂 Component Structure
+## 📁 Project Structure
 
 ```text
 src/
 ├── types/
-│   └── index.ts                 # TypeScript domain types (Routes, Barriers, Modes, Locations)
+│   └── index.ts                 # Domain types
 ├── data/
-│   └── mockData.ts              # Preset district landmarks & algorithmic route generator
+│   └── mockData.ts              # Presets and route generation
 ├── services/
-│   └── geocoding.ts             # Free OpenStreetMap & Photon geocoding service (No API keys)
+│   └── geocoding.ts             # OpenStreetMap & Photon search
 ├── components/
-│   ├── Header.tsx               # Frosted navigation bar with contrast & modal triggers
-│   ├── PlannerLanding.tsx       # Welcoming landing page with iOS-style segmented controls
-│   ├── RealPlaceAutocomplete.tsx # Free live worldwide address search dropdown
-│   ├── InteractiveMap.tsx       # SVG vector cartography, route overlays & pin popovers
-│   ├── RouteOptionsList.tsx     # Bento list of calculated route alternatives
-│   ├── RouteDetailsPanel.tsx    # Turn-by-turn steps, civic disclaimer & simulator
-│   ├── CommunityFeed.tsx        # Filterable community audit reports & upvoting
-│   ├── ReportIssueModal.tsx     # Apple-style modal for filing barrier reports
-│   ├── ModifyPreferencesModal.tsx # Drawer for updating route priorities
-│   └── AboutModal.tsx           # Transparency guide explaining verification tiers
-├── index.css                    # Tailwind setup, Apple frosted glass & scrollbar styles
-├── App.tsx                      # Top-level state orchestration & localStorage syncing
-└── main.tsx                     # React DOM entrypoint
+│   ├── Header.tsx               # Navigation and preferences
+│   ├── PlannerLanding.tsx       # Trip planner
+│   ├── RealPlaceAutocomplete.tsx
+│   ├── InteractiveMap.tsx       # SVG map and route overlays
+│   ├── RouteOptionsList.tsx     # Ranked alternatives
+│   ├── RouteDetailsPanel.tsx    # Turn-by-turn directions
+│   ├── CommunityFeed.tsx        # Reports and verification
+│   ├── ReportIssueModal.tsx     # Barrier submission
+│   ├── ModifyPreferencesModal.tsx
+│   └── AboutModal.tsx
+├── App.tsx                      # Application state
+├── main.tsx                     # React entry point
+└── index.css                    # Tailwind and global styles
 ```
-
----
-
-## 🔒 Privacy & Security Model
-
-AccessNow follows strict privacy-first engineering practices:
-
-* **Zero External API Calls**: The application makes no network calls to external mapping services, geocoders, or analytics trackers.
-* **No Secret Leaks**: No API keys, credentials, or private access tokens exist in the source code or client bundles.
-* **Local Storage Isolation**: Community reports created in the prototype are persisted solely within the client's local browser (`localStorage`), ensuring complete data privacy.
-* **Exhaustive `.gitignore`**: All `.env*` variants, `.pem` certificates, build artifacts (`dist/`), and `node_modules/` are strictly ignored.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (version 18 or later)
-- [npm](https://www.npmjs.com/) (version 9 or later)
+
+- [Node.js](https://nodejs.org/) 18 or later
+- [npm](https://www.npmjs.com/) 9 or later
 
 ### Installation
+
 ```bash
-# Clone the repository
 git clone https://github.com/Sayan-Mukherjee99/Mapping.git
-
-# Navigate into the project folder
 cd Mapping
-
-# Install dependencies
 npm install
 ```
 
-### Development Server
+### Start development
+
 ```bash
-# Launch the Vite local dev server
 npm run dev
 ```
-Open **[http://localhost:5173/](http://localhost:5173/)** in your web browser.
 
-### Production Build & Preview
+Open **http://localhost:5173** in a browser.
+
+### Production build
+
 ```bash
-# Typecheck and build optimized static assets
 npm run build
-
-# Preview the production build locally
 npm run preview
 ```
 
 ---
 
-## 🗺 Demo Data & Assumptions
+## 🔒 Privacy & Data
 
-* **District Scope**: Modeled after a dense urban *Downtown Civic & Medical District* featuring Metro Central Station, City Hall Plaza, Mercy General Hospital, Union Market Square, Riverside Library, and the Innovation Tech Campus.
-* **Civic Data Feeds**: Preloaded with realistic municipal Department of Public Works (DPW) notices and commuter audits to demonstrate the full lifecycle of urgent, unverified, and resolved barriers.
+- No API keys or secret credentials are required.
+- Search requests are sent to OpenStreetMap and Photon when live place search is used.
+- Community reports created in the prototype are stored in browser `localStorage`.
+- No analytics or third-party tracking is included in the application code.
+- Environment files, certificates, build output, and dependencies should remain excluded through `.gitignore`.
+
+---
+
+## 🗺️ Demo Scope
+
+The built-in district is inspired by a dense downtown civic and medical area featuring stations, plazas, hospitals, markets, libraries, parks, and waterfront locations.
+
+The included data demonstrates:
+
+- Urgent barriers
+- Unverified community reports
+- Verified obstacles
+- Cleared or resolved barriers
+- Municipal-style advisory notices
+
+The map and route engine are demonstration implementations rather than a live navigation or municipal data service.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch:
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+
+3. Make your changes and run the production build:
+
+   ```bash
+   npm run build
+   ```
+
+4. Open a pull request with:
+   - A clear summary
+   - Relevant screenshots or recordings
+   - Testing instructions
+   - Any accessibility considerations
+
+Please keep contributions focused, inclusive, and privacy-conscious.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE) — feel free to use, modify, and distribute it for community and civic initiatives.
+Licensed under the [MIT License](LICENSE).
+
+<div align="center">
+
+**Built to make every route feel possible.**
+
+</div>
