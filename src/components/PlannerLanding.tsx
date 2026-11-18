@@ -9,35 +9,36 @@ import {
   ShieldAlert, 
   Compass, 
   ArrowRight,
-  ChevronDown,
 } from 'lucide-react';
 import { 
   TravelMode, 
   AccessibilityPreference, 
-  LocationPreset 
+  LocationPreset,
+  RealPlace
 } from '../types';
+import { RealPlaceAutocomplete } from './RealPlaceAutocomplete';
 
 interface PlannerLandingProps {
   locations: LocationPreset[];
-  startLocId: string;
-  setStartLocId: (id: string) => void;
-  destLocId: string;
-  setDestLocId: (id: string) => void;
+  startPlace: RealPlace;
+  setStartPlace: (place: RealPlace) => void;
+  destPlace: RealPlace;
+  setDestPlace: (place: RealPlace) => void;
   travelMode: TravelMode;
   setTravelMode: (mode: TravelMode) => void;
   preferences: AccessibilityPreference[];
   onTogglePreference: (pref: AccessibilityPreference) => void;
   onSubmit: () => void;
-  onSelectSampleJourney: (start: string, dest: string, mode?: TravelMode) => void;
+  onSelectSampleJourney: (startId: string, destId: string, mode?: TravelMode) => void;
   activeBarrierCount: number;
 }
 
 export const PlannerLanding: React.FC<PlannerLandingProps> = ({
   locations,
-  startLocId,
-  setStartLocId,
-  destLocId,
-  setDestLocId,
+  startPlace,
+  setStartPlace,
+  destPlace,
+  setDestPlace,
   travelMode,
   setTravelMode,
   preferences,
@@ -47,17 +48,16 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
   activeBarrierCount,
 }) => {
   const handleSwap = () => {
-    const temp = startLocId;
-    setStartLocId(destLocId);
-    setDestLocId(temp);
+    const temp = startPlace;
+    setStartPlace(destPlace);
+    setDestPlace(temp);
   };
 
   const isPreferenceActive = (pref: AccessibilityPreference) => preferences.includes(pref);
 
-  const startLoc = locations.find(l => l.id === startLocId);
-  const destLoc = locations.find(l => l.id === destLocId);
-
-  const isFormValid = startLocId !== destLocId;
+  const isFormValid = startPlace.name.trim() !== '' && 
+                      destPlace.name.trim() !== '' && 
+                      (startPlace.id !== destPlace.id || startPlace.name.toLowerCase() !== destPlace.name.toLowerCase());
 
   const preferenceItems: Array<{ id: AccessibilityPreference; label: string; detail: string }> = [
     { id: 'step-free', label: 'Step-free route', detail: 'Zero stairs or high curbs' },
@@ -74,7 +74,7 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
       <div className="text-center mb-10 space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-black/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.03)] text-[13px] font-medium text-[#6E6E73]">
           <span className="w-2 h-2 rounded-full bg-[#34C759]"></span>
-          <span>Community Audited Pilot</span>
+          <span>Free Real Places & OpenStreetMap Geocoding</span>
           <span className="text-[#AEAEB2]">·</span>
           <span className="text-[#1D1D1F] font-semibold">{activeBarrierCount} Active Area Reports</span>
         </div>
@@ -85,7 +85,7 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
         </h1>
 
         <p className="text-[17px] sm:text-[19px] text-[#6E6E73] max-w-xl mx-auto leading-relaxed font-normal">
-          Find accessible pathways, live barrier alerts, and low-stress routes tailored for driving, cycling, and walking.
+          Type any real place, street, or landmark worldwide, or pick from local civic presets. 100% free with no paid API keys.
         </p>
       </div>
 
@@ -151,43 +151,19 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
             </div>
           </div>
 
-          {/* Locations Bento Row */}
+          {/* Locations Bento Row with Real Places Autocomplete */}
           <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-            {/* Origin Select */}
-            <div className="space-y-1.5 bg-[#F5F5F7] p-4 rounded-[18px] border border-black/[0.06]">
-              <label 
-                htmlFor="start-location-select" 
-                className="block text-[11px] font-semibold text-[#6E6E73] uppercase tracking-wider flex items-center gap-1.5"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#34C759]"></span>
-                Starting Point
-              </label>
-              <div className="relative">
-                <select
-                  id="start-location-select"
-                  value={startLocId}
-                  onChange={(e) => setStartLocId(e.target.value)}
-                  className="w-full appearance-none bg-transparent py-1 text-[#1D1D1F] font-semibold text-[15px] focus:outline-none cursor-pointer pr-8 tracking-tight"
-                >
-                  {locations.map((loc) => (
-                    <option key={`start-${loc.id}`} value={loc.id} disabled={loc.id === destLocId}>
-                      {loc.name} {loc.id === destLocId ? '(Destination)' : ''}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-[#8E8E93]">
-                  <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
-                </div>
-              </div>
-              {startLoc && (
-                <p className="text-[12px] text-[#86868B] truncate pt-0.5">
-                  {startLoc.address}
-                </p>
-              )}
-            </div>
+            {/* Origin Real Place Autocomplete */}
+            <RealPlaceAutocomplete
+              label="Starting Point"
+              dotColor="bg-[#34C759]"
+              selectedPlace={startPlace}
+              onSelectPlace={setStartPlace}
+              placeholder="Search real origin (e.g. Central Station, Times Sq)..."
+            />
 
-            {/* Floating Swap Button */}
-            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            {/* Floating Center Swap Button */}
+            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
               <button
                 type="button"
                 onClick={handleSwap}
@@ -199,38 +175,14 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
               </button>
             </div>
 
-            {/* Destination Select */}
-            <div className="space-y-1.5 bg-[#F5F5F7] p-4 rounded-[18px] border border-black/[0.06]">
-              <label 
-                htmlFor="dest-location-select" 
-                className="block text-[11px] font-semibold text-[#6E6E73] uppercase tracking-wider flex items-center gap-1.5"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#0071E3]"></span>
-                Destination
-              </label>
-              <div className="relative">
-                <select
-                  id="dest-location-select"
-                  value={destLocId}
-                  onChange={(e) => setDestLocId(e.target.value)}
-                  className="w-full appearance-none bg-transparent py-1 text-[#1D1D1F] font-semibold text-[15px] focus:outline-none cursor-pointer pr-8 tracking-tight"
-                >
-                  {locations.map((loc) => (
-                    <option key={`dest-${loc.id}`} value={loc.id} disabled={loc.id === startLocId}>
-                      {loc.name} {loc.id === startLocId ? '(Starting point)' : ''}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-[#8E8E93]">
-                  <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
-                </div>
-              </div>
-              {destLoc && (
-                <p className="text-[12px] text-[#86868B] truncate pt-0.5">
-                  {destLoc.address}
-                </p>
-              )}
-            </div>
+            {/* Destination Real Place Autocomplete */}
+            <RealPlaceAutocomplete
+              label="Destination"
+              dotColor="bg-[#0071E3]"
+              selectedPlace={destPlace}
+              onSelectPlace={setDestPlace}
+              placeholder="Search real destination (e.g. Hospital, Museum, City Hall)..."
+            />
           </div>
 
           {/* Mobile Swap Trigger */}
@@ -243,6 +195,31 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
               <ArrowLeftRight className="w-3.5 h-3.5" strokeWidth={1.75} />
               Swap Locations
             </button>
+          </div>
+
+          {/* Quick Preset Chips Row */}
+          <div className="pt-1 flex items-center gap-1.5 flex-wrap">
+            <span className="text-[11px] text-[#86868B]">Quick locations:</span>
+            {locations.slice(0, 4).map((loc) => (
+              <button
+                key={loc.id}
+                type="button"
+                onClick={() => setDestPlace({
+                  id: loc.id,
+                  name: loc.name,
+                  shortLabel: loc.shortLabel,
+                  address: loc.address,
+                  lat: 37.7749,
+                  lng: -122.4194,
+                  x: loc.x,
+                  y: loc.y,
+                  isRealLocation: false,
+                })}
+                className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] text-[#6E6E73] hover:text-[#1D1D1F] border border-black/[0.06] transition-colors"
+              >
+                {loc.shortLabel}
+              </button>
+            ))}
           </div>
 
           {/* Interactive Accessibility Preference Chips */}
@@ -400,10 +377,10 @@ export const PlannerLanding: React.FC<PlannerLandingProps> = ({
         </div>
         <div className="space-y-0.5">
           <p className="font-semibold text-[#1D1D1F]">
-            Audited Civic Data with Uncertainty Awareness
+            100% Free Open Geospatial Data (No Paid APIs)
           </p>
           <p className="leading-relaxed">
-            Accessibility reports are compiled from public civic audits and community reports. Because conditions change with street works, traffic, and weather, please verify conditions before traveling.
+            Real place autocomplete and address searches are powered by open-source OpenStreetMap and Photon. Zero billing, zero tracking, and zero API keys required.
           </p>
         </div>
       </div>

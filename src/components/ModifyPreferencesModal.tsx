@@ -6,13 +6,14 @@ import {
   Bike, 
   Footprints,
   Check, 
-  ChevronDown
 } from 'lucide-react';
 import { 
   TravelMode, 
   AccessibilityPreference, 
-  LocationPreset 
+  LocationPreset,
+  RealPlace
 } from '../types';
+import { RealPlaceAutocomplete } from './RealPlaceAutocomplete';
 
 interface ModifyPreferencesModalProps {
   isOpen: boolean;
@@ -21,10 +22,10 @@ interface ModifyPreferencesModalProps {
   setTravelMode: (mode: TravelMode) => void;
   preferences: AccessibilityPreference[];
   onTogglePreference: (pref: AccessibilityPreference) => void;
-  startLocId: string;
-  setStartLocId: (id: string) => void;
-  destLocId: string;
-  setDestLocId: (id: string) => void;
+  startPlace: RealPlace;
+  setStartPlace: (place: RealPlace) => void;
+  destPlace: RealPlace;
+  setDestPlace: (place: RealPlace) => void;
   locations: LocationPreset[];
   onRecalculate: () => void;
 }
@@ -36,11 +37,10 @@ export const ModifyPreferencesModal: React.FC<ModifyPreferencesModalProps> = ({
   setTravelMode,
   preferences,
   onTogglePreference,
-  startLocId,
-  setStartLocId,
-  destLocId,
-  setDestLocId,
-  locations,
+  startPlace,
+  setStartPlace,
+  destPlace,
+  setDestPlace,
   onRecalculate,
 }) => {
   if (!isOpen) return null;
@@ -86,51 +86,23 @@ export const ModifyPreferencesModal: React.FC<ModifyPreferencesModalProps> = ({
         </div>
 
         <div className="p-6 space-y-5 text-[14px]">
-          {/* Change Locations */}
+          {/* Change Real Places */}
           <div className="space-y-3">
-            <div className="space-y-1">
-              <label className="block text-[11px] font-semibold text-[#6E6E73] uppercase tracking-wider">
-                Starting Location
-              </label>
-              <div className="relative">
-                <select
-                  value={startLocId}
-                  onChange={(e) => setStartLocId(e.target.value)}
-                  className="w-full appearance-none bg-[#F5F5F7] border border-black/[0.08] rounded-[16px] px-3.5 py-2.5 text-[13px] font-semibold text-[#1D1D1F] pr-8 focus:outline-none focus:ring-2 focus:ring-[#0071E3]"
-                >
-                  {locations.map(loc => (
-                    <option key={`s-${loc.id}`} value={loc.id} disabled={loc.id === destLocId}>
-                      {loc.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[#8E8E93]">
-                  <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
-                </div>
-              </div>
-            </div>
+            <RealPlaceAutocomplete
+              label="Starting Point"
+              dotColor="bg-[#34C759]"
+              selectedPlace={startPlace}
+              onSelectPlace={setStartPlace}
+              placeholder="Search real origin..."
+            />
 
-            <div className="space-y-1">
-              <label className="block text-[11px] font-semibold text-[#6E6E73] uppercase tracking-wider">
-                Destination
-              </label>
-              <div className="relative">
-                <select
-                  value={destLocId}
-                  onChange={(e) => setDestLocId(e.target.value)}
-                  className="w-full appearance-none bg-[#F5F5F7] border border-black/[0.08] rounded-[16px] px-3.5 py-2.5 text-[13px] font-semibold text-[#1D1D1F] pr-8 focus:outline-none focus:ring-2 focus:ring-[#0071E3]"
-                >
-                  {locations.map(loc => (
-                    <option key={`d-${loc.id}`} value={loc.id} disabled={loc.id === startLocId}>
-                      {loc.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[#8E8E93]">
-                  <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
-                </div>
-              </div>
-            </div>
+            <RealPlaceAutocomplete
+              label="Destination"
+              dotColor="bg-[#0071E3]"
+              selectedPlace={destPlace}
+              onSelectPlace={setDestPlace}
+              placeholder="Search real destination..."
+            />
           </div>
 
           {/* Travel Mode Segmented Control: Car, Bike, Walk ONLY */}

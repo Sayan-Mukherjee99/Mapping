@@ -92,4 +92,23 @@ export interface LocationPreset {
   x: number;
   y: number;
   features: string[];
+  lat?: number;
+  lng?: number;
+  city?: string;
+  country?: string;
+  isRealLocation?: boolean;
+}
+
+export interface RealPlace {
+  id: string;
+  name: string;
+  shortLabel: string;
+  address: string;
+  city?: string;
+  country?: string;
+  lat: number;
+  lng: number;
+  x: number;
+  y: number;
+  isRealLocation: boolean;
 }

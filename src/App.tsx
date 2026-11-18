@@ -8,6 +8,7 @@ import {
   TravelMode, 
   AccessibilityPreference, 
   BarrierReport, 
+  RealPlace,
 } from './types';
 import { Header } from './components/Header';
 import { PlannerLanding } from './components/PlannerLanding';
@@ -29,8 +30,30 @@ export function App() {
   const [activeView, setActiveView] = useState<'planner' | 'results'>('planner');
   const [mobileTab, setMobileTab] = useState<'map' | 'routes' | 'feed'>('routes');
 
-  const [startLocId, setStartLocId] = useState<string>('central-station');
-  const [destLocId, setDestLocId] = useState<string>('mercy-hospital');
+  const [startPlace, setStartPlace] = useState<RealPlace>({
+    id: 'central-station',
+    name: 'Metro Central Station',
+    shortLabel: 'Central Station',
+    address: '100 Grand Concourse & 4th Ave',
+    lat: 37.7749,
+    lng: -122.4194,
+    x: 180,
+    y: 780,
+    isRealLocation: false,
+  });
+
+  const [destPlace, setDestPlace] = useState<RealPlace>({
+    id: 'mercy-hospital',
+    name: 'Mercy General Hospital & Clinic',
+    shortLabel: 'Mercy Hospital',
+    address: '820 North Boulevard & Health Way',
+    lat: 37.7849,
+    lng: -122.4094,
+    x: 780,
+    y: 220,
+    isRealLocation: false,
+  });
+
   const [travelMode, setTravelMode] = useState<TravelMode>('walk');
   const [preferences, setPreferences] = useState<AccessibilityPreference[]>([
     'step-free',
@@ -68,8 +91,8 @@ export function App() {
   }, [barriers]);
 
   const calculatedRoutes = useMemo(() => {
-    return calculateMockRoutes(startLocId, destLocId, travelMode, preferences, barriers);
-  }, [startLocId, destLocId, travelMode, preferences, barriers]);
+    return calculateMockRoutes(startPlace, destPlace, travelMode, preferences, barriers);
+  }, [startPlace, destPlace, travelMode, preferences, barriers]);
 
   const [activeRouteId, setActiveRouteId] = useState<string>('route-step-free');
 
@@ -95,9 +118,31 @@ export function App() {
     }, 450);
   };
 
-  const handleSelectSampleJourney = (start: string, dest: string, mode?: TravelMode) => {
-    setStartLocId(start);
-    setDestLocId(dest);
+  const handleSelectSampleJourney = (startId: string, destId: string, mode?: TravelMode) => {
+    const sLoc = LOCATION_PRESETS.find(l => l.id === startId) || LOCATION_PRESETS[0];
+    const dLoc = LOCATION_PRESETS.find(l => l.id === destId) || LOCATION_PRESETS[2];
+    setStartPlace({
+      id: sLoc.id,
+      name: sLoc.name,
+      shortLabel: sLoc.shortLabel,
+      address: sLoc.address,
+      lat: 37.7749,
+      lng: -122.4194,
+      x: sLoc.x,
+      y: sLoc.y,
+      isRealLocation: false,
+    });
+    setDestPlace({
+      id: dLoc.id,
+      name: dLoc.name,
+      shortLabel: dLoc.shortLabel,
+      address: dLoc.address,
+      lat: 37.7849,
+      lng: -122.4094,
+      x: dLoc.x,
+      y: dLoc.y,
+      isRealLocation: false,
+    });
     if (mode) setTravelMode(mode);
     setIsLoading(true);
     setTimeout(() => {
@@ -144,8 +189,8 @@ export function App() {
     );
   };
 
-  const startLoc = LOCATION_PRESETS.find(l => l.id === startLocId) || LOCATION_PRESETS[0];
-  const destLoc = LOCATION_PRESETS.find(l => l.id === destLocId) || LOCATION_PRESETS[2];
+  const startLoc = startPlace;
+  const destLoc = destPlace;
   const activeRoute = calculatedRoutes.find(r => r.id === activeRouteId) || calculatedRoutes[0];
   const activeBarrierCount = barriers.filter(b => b.status !== 'resolved').length;
 
@@ -187,10 +232,10 @@ export function App() {
         {activeView === 'planner' && (
           <PlannerLanding
             locations={LOCATION_PRESETS}
-            startLocId={startLocId}
-            setStartLocId={setStartLocId}
-            destLocId={destLocId}
-            setDestLocId={setDestLocId}
+            startPlace={startPlace}
+            setStartPlace={setStartPlace}
+            destPlace={destPlace}
+            setDestPlace={setDestPlace}
             travelMode={travelMode}
             setTravelMode={setTravelMode}
             preferences={preferences}
@@ -217,9 +262,9 @@ export function App() {
                 </button>
 
                 <div className="flex items-center gap-2 text-[14px] sm:text-[15px] font-bold text-[#1D1D1F] tracking-tight">
-                  <span className="text-[#34C759]">{startLoc.shortLabel}</span>
+                  <span className="text-[#34C759]">{startPlace.shortLabel || startPlace.name}</span>
                   <span className="text-[#8E8E93]">→</span>
-                  <span className="text-[#0071E3]">{destLoc.shortLabel}</span>
+                  <span className="text-[#0071E3]">{destPlace.shortLabel || destPlace.name}</span>
                 </div>
 
                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-[12px] font-medium bg-[#F5F5F7] text-[#6E6E73] border border-black/[0.06]">
@@ -349,8 +394,8 @@ export function App() {
                   onSelectBarrier={(id) => setSelectedBarrierId(id)}
                   onConfirmBarrier={handleConfirmBarrier}
                   onResolveBarrier={handleResolveBarrier}
-                  startLocId={startLocId}
-                  destLocId={destLocId}
+                  startPlace={startPlace}
+                  destPlace={destPlace}
                 />
               </div>
             </div>
@@ -411,10 +456,10 @@ export function App() {
         setTravelMode={setTravelMode}
         preferences={preferences}
         onTogglePreference={handleTogglePreference}
-        startLocId={startLocId}
-        setStartLocId={setStartLocId}
-        destLocId={destLocId}
-        setDestLocId={setDestLocId}
+        startPlace={startPlace}
+        setStartPlace={setStartPlace}
+        destPlace={destPlace}
+        setDestPlace={setDestPlace}
         locations={LOCATION_PRESETS}
         onRecalculate={() => {}}
       />

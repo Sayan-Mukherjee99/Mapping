@@ -166,6 +166,7 @@ stateDiagram-v2
 
 | Feature | Description |
 | :--- | :--- |
+| **Free Real Place Search** | Live worldwide address and landmark search powered by OpenStreetMap & Photon. Zero API keys, zero fees, and zero credit card requirements. |
 | **Bespoke Vector Map** | Stylized SVG district map containing Grand Concourse, Broad St, 5th Ave, Waterfront Harbor, piers, parks, crosswalks, and landmark footprints. Zero API keys required. |
 | **Ranked Accessible Routes** | Computes up to 3 routes per query with metrics: Step-Free %, Max Gradient %, Estimated Duration, Distance, and Active Obstacle Count. |
 | **Interactive Route Simulator** | Step-by-step navigation preview walking the user through each maneuver with tactile guides and push-button doorway indicators. |
@@ -184,9 +185,12 @@ src/
 │   └── index.ts                 # TypeScript domain types (Routes, Barriers, Modes, Locations)
 ├── data/
 │   └── mockData.ts              # Preset district landmarks & algorithmic route generator
+├── services/
+│   └── geocoding.ts             # Free OpenStreetMap & Photon geocoding service (No API keys)
 ├── components/
 │   ├── Header.tsx               # Frosted navigation bar with contrast & modal triggers
 │   ├── PlannerLanding.tsx       # Welcoming landing page with iOS-style segmented controls
+│   ├── RealPlaceAutocomplete.tsx # Free live worldwide address search dropdown
 │   ├── InteractiveMap.tsx       # SVG vector cartography, route overlays & pin popovers
 │   ├── RouteOptionsList.tsx     # Bento list of calculated route alternatives
 │   ├── RouteDetailsPanel.tsx    # Turn-by-turn steps, civic disclaimer & simulator

@@ -1,4 +1,4 @@
-import { LocationPreset, BarrierReport, RouteOption, TravelMode, AccessibilityPreference } from '../types';
+import { LocationPreset, BarrierReport, RouteOption, TravelMode, AccessibilityPreference, RealPlace } from '../types';
 
 export const LOCATION_PRESETS: LocationPreset[] = [
   {
@@ -168,14 +168,26 @@ export const INITIAL_BARRIERS: BarrierReport[] = [
 
 // Helper to generate route alternatives dynamically based on start/destination and preferences
 export function calculateMockRoutes(
-  startId: string,
-  destId: string,
+  startInput: string | RealPlace,
+  destInput: string | RealPlace,
   mode: TravelMode,
   preferences: AccessibilityPreference[],
   barriers: BarrierReport[]
 ): RouteOption[] {
-  const startLoc = LOCATION_PRESETS.find(l => l.id === startId) || LOCATION_PRESETS[0];
-  const destLoc = LOCATION_PRESETS.find(l => l.id === destId) || LOCATION_PRESETS[2];
+  let startLoc: { name: string; shortLabel: string; address: string; x: number; y: number };
+  let destLoc: { name: string; shortLabel: string; address: string; x: number; y: number };
+
+  if (typeof startInput === 'object' && startInput !== null) {
+    startLoc = startInput;
+  } else {
+    startLoc = LOCATION_PRESETS.find(l => l.id === startInput) || LOCATION_PRESETS[0];
+  }
+
+  if (typeof destInput === 'object' && destInput !== null) {
+    destLoc = destInput;
+  } else {
+    destLoc = LOCATION_PRESETS.find(l => l.id === destInput) || LOCATION_PRESETS[2];
+  }
 
   const dx = destLoc.x - startLoc.x;
   const dy = destLoc.y - startLoc.y;

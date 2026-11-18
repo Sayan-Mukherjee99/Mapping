@@ -30,8 +30,10 @@ interface InteractiveMapProps {
   onSelectBarrier: (barrierId: string | null) => void;
   onConfirmBarrier: (barrierId: string) => void;
   onResolveBarrier: (barrierId: string) => void;
-  startLocId: string;
-  destLocId: string;
+  startLocId?: string;
+  destLocId?: string;
+  startPlace?: { name: string; shortLabel: string; address: string; x: number; y: number };
+  destPlace?: { name: string; shortLabel: string; address: string; x: number; y: number };
 }
 
 export const InteractiveMap: React.FC<InteractiveMapProps> = ({
@@ -46,6 +48,8 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   onResolveBarrier,
   startLocId,
   destLocId,
+  startPlace,
+  destPlace,
 }) => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [panOffset, setPanOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -57,8 +61,8 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
-  const startLoc = locations.find(l => l.id === startLocId) || locations[0];
-  const destLoc = locations.find(l => l.id === destLocId) || locations[2];
+  const startLoc = startPlace || locations.find(l => l.id === startLocId) || locations[0];
+  const destLoc = destPlace || locations.find(l => l.id === destLocId) || locations[2];
   const activeRoute = routes.find(r => r.id === activeRouteId) || routes[0];
   const selectedBarrier = barriers.find(b => b.id === selectedBarrierId) || null;
 
